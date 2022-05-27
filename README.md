@@ -81,6 +81,10 @@ GET /v1/users
 
 #
 
+### For counter endpoints, API Gateway is only redirecting requests to https://countapi.xyz/.
+
+#
+
 ## Increase counter:
 
 ```bash
