@@ -1,58 +1,114 @@
-# Serverless Framework AWS NodeJS Example
+# Ton Coding Challenge
 
-This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+Lambda functions to manage users and count access. The project is using API Gateway to manage requests, lambda functions to store and retrieve user data, and DynamoDB to store data.
 
-## Usage
+## Production Environment
 
-### Deployment
-
-In order to deploy the example, you need to run the following command:
-
-```
-$ serverless deploy
-```
-
-After running deploy, you should see output similar to:
+The project is deployed at:
 
 ```bash
-Deploying aws-node-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-project-dev (112s)
-
-functions:
-  hello: aws-node-project-dev-hello (1.5 kB)
+https://lu27ky0opa.execute-api.us-east-1.amazonaws.com
 ```
 
-### Invocation
+## Resources
 
-After successful deployment, you can invoke the deployed function by using the following command:
+#
+
+## Create an user:
 
 ```bash
-serverless invoke --function hello
+POST /v1/users
 ```
-
-Which should result in response similar to the following:
 
 ```json
 {
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": {}\n}"
+  "name": "Ton API User",
+  "age": "30"
 }
 ```
 
-### Local development
+```json
+"User Ton API User has been created"
+```
 
-You can invoke your function locally by using the following command:
+#
+
+## Get user by id:
 
 ```bash
-serverless invoke local --function hello
+GET /v1/users/{userId}
 ```
 
-Which should result in response similar to the following:
-
-```
+```json
 {
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+  "Item": {
+    "created_at": "2022-05-27T17:27:48.048Z",
+    "name": "Marcus Macedo",
+    "userId": "1653672468048",
+    "age": "24"
+  }
 }
 ```
+
+#
+
+## List users:
+
+```bash
+GET /v1/users
+```
+
+```json
+{
+  "Items": [
+    {
+      "created_at": "2022-05-27T17:27:48.048Z",
+      "name": "Marcus Macedo",
+      "userId": "1653672468048",
+      "age": "24"
+    },
+    {
+      "created_at": "2022-05-27T17:04:26.378Z",
+      "name": "Marcus",
+      "userId": "1653671066378",
+      "age": "24"
+    }
+  ],
+  "Count": 2,
+  "ScannedCount": 2
+}
+```
+
+#
+
+## Increase counter:
+
+```bash
+PUT /v1/counter/increase
+```
+
+```json
+{
+  "value": 5
+}
+```
+
+#
+
+## Get counter:
+
+```bash
+GET /v1/counter
+```
+
+```json
+{
+  "value": 5
+}
+```
+
+#
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)

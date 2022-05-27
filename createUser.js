@@ -56,7 +56,7 @@ exports.handle = async event => {
             data: JSON.stringify(params),
         });
 
-        return buildResponse(201, `User ${data.userId} has been created`);
+        return buildResponse(201, `User ${data.name} has been created`);
     } catch (err) {
         console.error(err);
         return buildResponse(500, 'Somenthing went wrong');
