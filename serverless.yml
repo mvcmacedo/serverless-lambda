@@ -28,10 +28,6 @@ functions:
     handler: getUser.handle
   createUser:
     handler: createUser.handle
-  increaseCounter:
-    handler: increaseCounter.handle
-  getCounter:
-    handler: getCounter.handle
 
 resources:
   Resources:
